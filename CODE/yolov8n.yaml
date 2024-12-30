@@ -1,0 +1,67 @@
+# YOLOv8n Model Configuration File
+# This file defines the architecture and scaling parameters for the YOLOv8n model.
+
+# Number of classes (adjust this based on your dataset)
+nc: 15  # Replace with the number of classes in your dataset
+
+# Model scaling parameters
+depth_multiple: 0.5  # Depth scaling factor for YOLOv8n (default for nano model)
+width_multiple: 0.5  # Width scaling factor for YOLOv8n (default for nano model)
+
+# Backbone network
+backbone:
+  - type: Conv  # Convolutional layer
+    args: [64, 3, 2]
+  - type: C2f  # C2f block
+    args: [64, 1, True]
+  - type: Conv
+    args: [128, 3, 2]
+  - type: C2f
+    args: [128, 2, True]
+  - type: Conv
+    args: [256, 3, 2]
+  - type: C2f
+    args: [256, 2, True]
+  - type: Conv
+    args: [512, 3, 2]
+  - type: C2f
+    args: [512, 1, True]
+  - type: Conv
+    args: [1024, 3, 2]
+  - type: SPPF  # Spatial Pyramid Pooling - Fast
+    args: [1024, 1]
+
+# Head network
+head:
+  - type: C2f
+    args: [512, 1, False]
+  - type: Conv
+    args: [256, 1, 1]
+  - type: Upsample
+    args: [None, 2, 'nearest']
+  - type: Concat
+    args: [None, -1]
+  - type: C2f
+    args: [256, 1, False]
+  - type: Conv
+    args: [128, 1, 1]
+  - type: Upsample
+    args: [None, 2, 'nearest']
+  - type: Concat
+    args: [None, -1]
+  - type: C2f
+    args: [128, 1, False]
+  - type: Conv
+    args: [128, 3, 2]
+  - type: Concat
+    args: [None, -1]
+  - type: C2f
+    args: [256, 1, False]
+  - type: Conv
+    args: [256, 3, 2]
+  - type: Concat
+    args: [None, -1]
+  - type: C2f
+    args: [512, 1, False]
+  - type: Detect  # Detection head
+    args: [nc, [128, 256, 512]]  # Number of classes and anchors
