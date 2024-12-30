@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficSignDetect</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html"><img src="static/logo.png" class="logo"></a>
+            <h1>TrafficSignDetect</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main') }}" class="nav-link active">Home</a></li>
+                <li><a href="{{ url_for('deteksi') }}" class="nav-link">Detection</a></li>
+            </ul>
+        </nav>
+        <main>
+            <div class="tag-detect">
+                <h1>Welcome to TrafficSignDetect</h1>
+                <h1 style="font-weight: lighter;">"Traffic Sign Detection and Recognition"</h1>
+            </div>
+        </main>
+        <upload>
+            <div class="box-desc">
+                <div class="desc">
+                    TrafficSignDetect adalah aplikasi yang dirancang untuk membantu Anda mendeteksi dan mengenali rambu lalu lintas. Hasil deteksi akan diklasifikasikan ke dalam 10 kelas rambu yang berbeda. Dengan menggunakan model YOLOv8, aplikasi ini dapat dikembangkan kembali untuk mendukung keselamatan dan efisiensi di jalan raya.
+                </div>
+                <div class="box-btn-start">
+                    <a href="{{ url_for('deteksi') }}" class="nav-link">Start</a>
+                </div>
+            </div>
+            
+        </upload>
+        <severity>
+            <div class="left">
+                <img src="static/stopsign.jpg">
+                <p>Stop</p>
+            </div>
+            <div class="right">
+                <img src="static/trafficLight.jpg">
+                <p>Green Light</p>
+            </div>
+            <div class="left">
+                <img src="static/limit20.jpg">
+                <p>Speed Limit 20</p>
+            </div>
+            <div class="right">
+                <img src="static/limit50.jpg">
+                <p>Speed Limit 50</p>
+            </div>
+        </severity>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>

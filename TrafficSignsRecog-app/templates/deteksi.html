@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficSignDetect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0yZ1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ url_for('main') }}"><img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="Logo"></a>
+            <h1>TrafficSignDetect</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main') }}" class="nav-link">Home</a></li>
+                <li><a href="{{ url_for('deteksi') }}" class="nav-link active">Detection</a></li>
+            </ul>
+        </nav>
+        <main>
+            <div class="tag-detect">
+                <h1>Traffic Sign Detection and Recognition</h1>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='stop.png') }}" class="logo" alt="Stop Sign">
+                <img src="{{ url_for('static', filename='arrow.png') }}" class="logo" alt="Arrow Sign">
+                <img src="{{ url_for('static', filename='tsClass.png') }}" class="logo" alt="Traffic Sign Classification">
+            </div>
+        </main>
+        <upload>
+            <form action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data">
+                <div class="box-up">
+                    <div class="box-tag" style="font-weight: bolder;">Upload Image or Video</div>
+                    <div class="box-img" id="drop-area">
+                        <div>
+                            <img src="{{ url_for('static', filename='img-icon.png') }}" id="preview-img" alt="Image Preview"
+                                style="max-width: 50%; max-height: 300px;">
+                        </div>
+                        <div>
+                            <video id="preview-video" controls style="max-width: 50%; max-height: 300px; display: none;">
+                                <source src="" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div>
+                            Drop your image or video here or <a id="browse-link" href="#">browse</a>
+                            <input type="file" id="file-input" accept="image/*,video/*" style="display: none;" name="file">
+                        </div>
+                        <div>
+                            <p>Support: jpg, jpeg, png, mp4.</p>
+                        </div>
+                    </div>
+                    <div class="box-btn">
+                        <a href="{{ url_for('deteksi') }}" id="clear-btn">Clear</a>
+                        <a href="#" id="scan-btn">Detect</a>
+                    </div>
+                </div>
+            </form>
+        </upload>
+        <result>
+            <div class="box-out">
+                <div class="box-tag" style="font-weight: bolder; text-align: center;">Detection Result</div>
+                <div>
+                    {% if video_path %}
+                      <video class="video-out" id="result-video" controls style="max-width: 100%; max-height: 500px;">
+                        <source src=src="{{ video_path }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    {% endif %}
+                    {% if img_data %}
+                        <img src="{{ img_data }}" alt="Hasil Deteksi" class="img-out">
+                    {% endif %}
+                </div>
+            </div>
+        </result>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
